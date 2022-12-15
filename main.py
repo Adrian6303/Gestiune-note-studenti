@@ -1,5 +1,3 @@
-from domain.entities import Student
-from domain.entities import PbLaborator
 from domain.validators import Validator
 from ui.console import Console
 from service.generate_values import Random
@@ -13,10 +11,13 @@ from service.grade_service import GradeService
 repoS = StudentFileRepo('data/students.txt')
 repoL = PbLabFileRepo('data/pbLab.txt')
 repoG = GradeFileRepo('data/grades.txt')
+
 val = Validator()
+
 srvL = PbLabService(repoL, val)
 srvS = StudentService(repoS, val)
 srvR = Random(repoS, repoL, val)
 srvG = GradeService(repoS, repoL, repoG, val)
+
 ui = Console(srvL, srvS, srvR, srvG)
 ui.gestiune_lab_ui()

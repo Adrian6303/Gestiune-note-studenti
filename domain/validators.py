@@ -1,5 +1,4 @@
-from domain.entities import Student
-from domain.entities import PbLaborator
+from domain.entities import Student, PbLaborator, Grade
 from exceptions.exceptions import *
 
 
@@ -15,7 +14,7 @@ class Validator:
 
         if len(errors) > 0:
             errors_string = '\n'.join(errors)
-            raise ValueError(errors_string)
+            raise ValidationException(errors_string)
 
     def validate_pbLab(self, pbLab):
         errors = []
@@ -36,15 +35,15 @@ class Validator:
 
         if len(errors) > 0:
             errors_string = '\n'.join(errors)
-            raise ValueError(errors_string)
+            raise ValidationException(errors_string)
     def validate_grade(self, grade):
         errors = []
         if grade.getGrade() < 0 or grade.getGrade() > 10:
             errors.append('Nota poate fi intre 1 si 10.')
 
         if len(errors) > 0:
-            # errors_string = '\n'.join(errors)
-            raise ValidationException(errors)
+            errors_string = '\n'.join(errors)
+            raise ValidationException(errors_string)
     def validate_StudentID(self, id):
         errors = []
         if id < 100000 or id >= 1000000:
@@ -67,7 +66,7 @@ class Validator:
         except IndexError:
             errors.append('Numarul nu este de forma corecta.')
             errors_string = '\n'.join(errors)
-            raise ValueError(errors_string)
+            raise ValidationException(errors_string)
 
 
 def test_student_validator():

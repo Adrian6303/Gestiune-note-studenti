@@ -58,33 +58,6 @@ class Student:
         return Student.no_instances
 
 
-def test_create_student():
-    student1 = Student(578102, 'Marinache Iberiu', 4)
-    assert (student1.getStudentID() == 578102)
-    assert (student1.getNume() == 'Marinache Iberiu')
-    assert (student1.getGrup() == 4)
-
-    student1.setStudentID(567123)
-    student1.setNume('Pasare Valeriu')
-    student1.setGrup(7)
-
-    assert (student1.getStudentID() == 567123)
-    assert (student1.getNume() == 'Pasare Valeriu')
-    assert (student1.getGrup() == 7)
-
-
-def test_equals_student():
-    student1 = Student(895176, 'Randunica Adriana', 12)
-    student2 = Student(895176, 'Randunica Adriana', 10)
-
-    assert (student1 == student2)
-
-    student3 = Student(128626, 'Randunica Adriana', 12)
-    assert (student1 != student3)
-
-
-test_create_student()
-test_equals_student()
 
 
 class PbLaborator:
@@ -148,29 +121,6 @@ class PbLaborator:
         return PbLaborator.no_instances
 
 
-def test_create_PbLaborator():
-    PbLaborator1 = PbLaborator('2_7', 'Cautare numere prime', '4 martie')
-    assert (PbLaborator1.getNrLab_nrPb() == '2_7')
-    assert (PbLaborator1.getDescriere() == 'Cautare numere prime')
-    assert (PbLaborator1.getDeadline() == '4 martie')
-
-    PbLaborator1.setNrLab_nrPb('5_12')
-    PbLaborator1.setDescriere('Divizorii comuni')
-    PbLaborator1.setDeadline('7 iunie')
-
-    assert (PbLaborator1.getNrLab_nrPb() == '5_12')
-    assert (PbLaborator1.getDescriere() == 'Divizorii comuni')
-    assert (PbLaborator1.getDeadline() == '7 iunie')
-
-
-def test_equals_PbLaborator():
-    PbLaborator1 = PbLaborator('2_7', 'Cautare numere prime', '5 martie')
-    PbLaborator2 = PbLaborator('2_7', 'Cautare numere prime', '1 martie')
-
-    assert (PbLaborator1 == PbLaborator2)
-
-    PbLaborator3 = PbLaborator('2_10', 'Cautare numere prime', '10 martie')
-    assert (PbLaborator1 != PbLaborator3)
 
 
 class Grade:
@@ -207,8 +157,3 @@ class Grade:
                'PbLab: [' + str(self.__pbLab) + '],' + 'Grade: ' + str(self.__grade)
 
 
-test_create_student()
-test_equals_student()
-
-test_create_PbLaborator()
-test_equals_PbLaborator()
