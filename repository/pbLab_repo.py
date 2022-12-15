@@ -117,7 +117,7 @@ class PbLabFileRepo:
         all_problems = self.__load_from_file()
         index = self.__find_index(all_problems, nr)
         if index == -1:
-            raise StudentNotFoundException()
+            raise PbLabNotFoundException()
 
         deleted_problem = all_problems.pop(index)
 
