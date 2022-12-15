@@ -43,7 +43,7 @@ class StudentNotFoundException(RepositoryException):
         RepositoryException.__init__(self, "Studentul nu a fost gasit.")
 
 
-class RatingNotFoundException(RepositoryException):
+class GradeNotFoundException(RepositoryException):
     def __init__(self):
         RepositoryException.__init__(self, "Rating-ul nu a fost gasit.")
 

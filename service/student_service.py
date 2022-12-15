@@ -89,23 +89,3 @@ class StudentService:
         """
         self.__validator.validate_StudentID(id)
         return self.__repo.find(id)
-
-
-def test_add_student():
-    repo = StudentFileRepo()
-    validator = Validator()
-    test_srv = StudentService(repo, validator)
-
-    added_student = test_srv.add_student(545677, 'Tractoreanu Leonardo', 12)
-    assert (added_student.getStudentID() == 545677)
-    assert (added_student.getNume() == 'Tractoreanu Leonardo')
-    assert (added_student.getGrup() == 12)
-
-    assert (len(test_srv.get_all_students()) == 1)
-
-    try:
-        added_student = test_srv.add_student(545, 'Tractoreanu Leonardo', 12)
-        assert False
-    except ValueError:
-        assert True
-

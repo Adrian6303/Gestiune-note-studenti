@@ -69,6 +69,8 @@ class StudentFileRepo:
         :raises: DuplicateIDException daca studentul exista deja
         """
         all_students = self.__load_from_file()
+        if all_students is None:
+            all_students=[]
         if student in all_students:
             raise DuplicateIDException()
 

@@ -96,23 +96,3 @@ class PbLabService:
         """
         self.__validator.validate_NrLab_nrPb(nr)
         return self.__repo.find(nr)
-
-
-
-def test_add_probleme():
-    repo = PbLabFileRepo()
-    validator = Validator()
-    test_srv = PbLabService(repo, validator)
-
-    added_problem = test_srv.add_pbLab('1_5', 'Sirul lui Fibbonaci', '10 octombrie')
-    assert (added_problem.getNrLab_nrPb() == '1_5')
-    assert (added_problem.getDescriere() == 'Sirul lui Fibbonaci')
-    assert (added_problem.getDeadline() == '10 octombrie')
-
-    assert (len(test_srv.get_all_problems()) == 1)
-
-    try:
-        added_problem = test_srv.add_pbLab('1231233_51231', 'Sirul lui Fibbonaci', '10 octombrie')
-        assert False
-    except ValueError:
-        assert True
