@@ -38,15 +38,18 @@ class TestCaseGradeService(unittest.TestCase):
         self.assertRaises(PbLabNotFoundException, self.__srv.create_grade, 567354, '6_6', 4.8)
         self.assertRaises(ValidationException, self.__srv.create_grade, 785613, '5_6', 96.0)
 
-
     def test_get_avg_sub5(self):
         exist = self.__srv.get_avg_sub5()
-        self.assertEqual(exist , True)
+        self.assertEqual(exist, True)
 
     def test_stat_studenti_note(self):
-        exist=self.__srv.stat_studenti_note(679456)
+        exist = self.__srv.stat_studenti_note(679456)
         self.assertEqual(exist, False)
 
     def test_get_media_max(self):
-        exist=self.__srv.get_media_max()
+        exist = self.__srv.get_media_max()
         self.assertEqual(exist, 'Studentul:  Leonardo Vrajitorul  cu media:  9.0')
+
+
+if __name__ == '__main__':
+    unittest.main()

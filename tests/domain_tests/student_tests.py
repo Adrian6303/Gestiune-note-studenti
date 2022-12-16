@@ -30,7 +30,7 @@ class TestCaseStudentDomain(unittest.TestCase):
         self.assertEqual(student1, student2)
 
         student3 = Student(128626, 'Randunica Adriana', 12)
-        self.assertNotEqual(student1,student3)
+        self.assertNotEqual(student1, student3)
 
     def test_student_validator(self):
         student1 = Student(578102, 'Marinache Iberiu', 4)
@@ -40,3 +40,7 @@ class TestCaseStudentDomain(unittest.TestCase):
 
         self.assertRaises(ValidationException, self.__validator.validate_student, student2)
         self.assertRaises(ValidationException, self.__validator.validate_student, student3)
+
+
+if __name__ == '__main__':
+    unittest.main()

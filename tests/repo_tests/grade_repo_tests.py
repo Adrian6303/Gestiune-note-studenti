@@ -5,7 +5,6 @@ from exceptions.exceptions import GradeAlreadyAssignedException
 from repository.grade_repo import GradeFileRepo
 
 
-
 class TestCaseGradeRepoFile(unittest.TestCase):
     def setUp(self) -> None:
         self.__repo = GradeFileRepo('test_grade_repo.txt')
@@ -41,3 +40,7 @@ class TestCaseGradeRepoFile(unittest.TestCase):
 
     def tearDown(self) -> None:
         self.__repo.delete_all()
+
+
+if __name__ == '__main__':
+    unittest.main()

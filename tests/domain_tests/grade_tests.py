@@ -44,3 +44,7 @@ class TestCaseGradeDomain(unittest.TestCase):
 
         grade1 = Grade(student, pbLab, 100)
         self.assertRaises(ValidationException, self.__validator.validate_grade, grade1)
+
+
+if __name__ == '__main__':
+    unittest.main()

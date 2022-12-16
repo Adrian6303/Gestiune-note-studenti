@@ -23,7 +23,6 @@ class TestCasePbLaboratorDomain(unittest.TestCase):
         self.assertEqual(pbLab1.getDescriere(), 'Divizorii comuni')
         self.assertEqual(pbLab1.getDeadline(), '7 iunie')
 
-
     def test_equals_pbLab(self):
         pbLab1 = PbLaborator('2_7', 'Cautare numere prime', '5 martie')
         pbLab2 = PbLaborator('2_7', 'Cautare numere prime', '5 martie')
@@ -31,7 +30,7 @@ class TestCasePbLaboratorDomain(unittest.TestCase):
         self.assertEqual(pbLab1, pbLab2)
 
         pbLab3 = PbLaborator('2_10', 'Cautare numere prime', '10 martie')
-        self.assertNotEqual(pbLab1,pbLab3)
+        self.assertNotEqual(pbLab1, pbLab3)
 
     def test_pbLab_validator(self):
         pbLab1 = PbLaborator('2_7', 'Cautare numere prime', '4 martie')
@@ -41,3 +40,7 @@ class TestCasePbLaboratorDomain(unittest.TestCase):
 
         self.assertRaises(ValidationException, self.__validator.validate_pbLab, pbLab2)
         self.assertRaises(ValidationException, self.__validator.validate_pbLab, pbLab3)
+
+
+if __name__ == '__main__':
+    unittest.main()

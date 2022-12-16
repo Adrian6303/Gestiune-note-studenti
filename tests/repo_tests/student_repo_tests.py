@@ -4,6 +4,7 @@ from domain.entities import Student
 from exceptions.exceptions import DuplicateIDException, StudentNotFoundException
 from repository.student_repo import StudentFileRepo
 
+
 class TestCaseStudentRepoFile(unittest.TestCase):
     def setUp(self) -> None:
         self.__repo = StudentFileRepo('test_student_repo.txt')
@@ -11,7 +12,7 @@ class TestCaseStudentRepoFile(unittest.TestCase):
         self.__populate_list()
 
     def __populate_list(self):
-        student1 = Student(567354, 'Marian Faru',2)
+        student1 = Student(567354, 'Marian Faru', 2)
         student2 = Student(679456, 'Felix', 7)
         student3 = Student(744563, 'Leonardo Vrajitorul', 10)
         student4 = Student(785613, 'Franz', 3)
@@ -21,9 +22,6 @@ class TestCaseStudentRepoFile(unittest.TestCase):
         student8 = Student(556724, 'Marian', 8)
         student9 = Student(676154, 'Modoi', 9)
         student10 = Student(567111, 'Vancea', 12)
-
-
-
 
         self.__repo.store(student1)
         self.__repo.store(student2)
@@ -52,7 +50,7 @@ class TestCaseStudentRepoFile(unittest.TestCase):
 
         self.assertEqual(self.__repo.size(), initial_size - 2)
 
-        self.__repo.store(Student(567242, 'Vivaldi',3))
+        self.__repo.store(Student(567242, 'Vivaldi', 3))
         self.assertEqual(self.__repo.size(), initial_size - 1)
         self.__repo.edit(785613, Student(785613, '785613', 2))
         self.assertEqual(self.__repo.size(), initial_size - 1)
@@ -70,7 +68,7 @@ class TestCaseStudentRepoFile(unittest.TestCase):
         crt_students = self.__repo.get_all()
         self.assertEqual(len(crt_students), initial_size - 2)
 
-        self.__repo.store(Student(678122,'Goran', 1))
+        self.__repo.store(Student(678122, 'Goran', 1))
         self.assertTrue(self.__repo.size() == initial_size - 1)
 
         self.__repo.edit(678122, Student(678122, 'Gropar', 2))
@@ -79,20 +77,20 @@ class TestCaseStudentRepoFile(unittest.TestCase):
 
     def test_store(self):
         initial_size = self.__repo.size()
-        student1 = Student(511167,'Norbert',1)
+        student1 = Student(511167, 'Norbert', 1)
         self.__repo.store(student1)
 
         self.assertEqual(self.__repo.size(), initial_size + 1)
-        student2 = Student(782811,'Carl Cox',6)
+        student2 = Student(782811, 'Carl Cox', 6)
         self.__repo.store(student2)
         self.assertEqual(self.__repo.size(), initial_size + 2)
         self.assertRaises(DuplicateIDException, self.__repo.store, student2)
 
     def test_delete(self):
         initial_size = self.__repo.size()
-        student1 = Student(222345,'Berinde',15)
+        student1 = Student(222345, 'Berinde', 15)
         self.__repo.store(student1)
-        student2 = Student(676752,'Elon',3)
+        student2 = Student(676752, 'Elon', 3)
         self.__repo.store(student2)
 
         deleted_student = self.__repo.delete(222345)
@@ -104,16 +102,20 @@ class TestCaseStudentRepoFile(unittest.TestCase):
         self.assertRaises(StudentNotFoundException, self.__repo.delete, 'wrongID')
 
     def test_edit(self):
-        student1 = Student(678825,'Leo',6)
+        student1 = Student(678825, 'Leo', 6)
         self.__repo.store(student1)
-        student2 = Student(676752,'Elon',3)
+        student2 = Student(676752, 'Elon', 3)
         self.__repo.store(student2)
-        student3 = Student(222345,'Berinde',15)
+        student3 = Student(222345, 'Berinde', 15)
 
         modified_student = self.__repo.edit(678825, student3)
         self.assertEqual(modified_student.getNume(), 'Berinde')
         self.assertEqual(modified_student.getGrup(), 15)
-        self.assertRaises(StudentNotFoundException, self.__repo.edit, 6784563, Student(222345,'Berinde',15))
+        self.assertRaises(StudentNotFoundException, self.__repo.edit, 6784563, Student(222345, 'Berinde', 15))
 
     def tearDown(self) -> None:
         self.__repo.delete_all()
+
+
+if __name__ == '__main__':
+    unittest.main()
