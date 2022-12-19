@@ -2,18 +2,15 @@ from domain.entities import Student, PbLaborator, Grade
 from domain.validators import Validator
 from repository.grade_repo import GradeFileRepo
 from exceptions.exceptions import *
-
-
-
+from service.sort import *
 
 
 class GradeService:
-    def __init__(self, repoS,repoL, repoG, validator):
+    def __init__(self, repoS, repoL, repoG, validator):
         self.__repoS = repoS
         self.__repoL = repoL
         self.__repoG = repoG
         self.__validator = validator
-
 
     def create_grade(self, student_id, pbLab_nr, grade_val):
         """
@@ -50,42 +47,57 @@ class GradeService:
 
     def get_avg_sub5(self):
         all_grades = self.__repoG.get_all()
-        all_students= self.__repoS.get_all()
-        ok=False
+        all_students = self.__repoS.get_all()
+        ok = False
+        studenti=[]
         for stud in all_students:
             media = 0
             nr = 0
             for grade in all_grades:
                 if grade.getStudent() == stud.getStudentID():
-                    media+=int(grade.getGrade())
-                    nr+=1
-            if nr>0:
-                media=float(media/nr)
+                    media += int(grade.getGrade())
+                    nr += 1
+            if nr > 0:
+                media = float(media / nr)
                 if media < 5:
-                    print("Studentul: "+ str(stud.getNume()) + "(ID: " + str(stud.getStudentID()) +"), media:" + str(media))
-                    ok=True
+                    studenti.append(stud.getStudentID())
+                    ok = True
+        if len(studenti) > 0:
+            ok = True
+            size = len(studenti)
+            studenti = gnomeSort(studenti, size)
+            print('Toti studenții cu media notelor de laborator mai mic decât 5:')
+            for stud in studenti:
+                for student in all_students:
+                    if student.getStudentID() == stud:
+                        print('Studentul: ' + str(student.getNume()) + ' (Id:' + str(stud) + ')')
+
+
         return ok
 
     def stat_studenti_note(self, nr):
         all_grades = self.__repoG.get_all()
         all_students = self.__repoS.get_all()
-        studenti=[]
-        ok=False
+        studenti = []
+        ok = False
         for grade in all_grades:
             if grade.getPbLab() == nr:
                 for student in all_students:
-                    if student.getStudentID() ==grade.getStudent():
-                        studenti.append(student.getNume())
+                    if student.getStudentID() == grade.getStudent():
+                        studenti.append(student.getStudentID())
 
-        if len(studenti)>0:
-            ok=True
-            studenti = sorted(studenti)
+        if len(studenti) > 0:
+            ok = True
+            size = len(studenti)
+            quickSort(studenti, 0, size - 1)
+            print('Lista de studenți și notele lor la  problema de laborator ' + str(nr) + ' data:')
             for stud in studenti:
                 for grade in all_grades:
                     for student in all_students:
                         if student.getStudentID() == grade.getStudent():
-                            if stud == student.getNume() and grade.getPbLab() == nr:
-                                print('Studentul:' + str(stud) + ' cu nota: ' + str(grade.getGrade()))
+                            if stud == student.getStudentID() and grade.getPbLab() == nr:
+                                print('Studentul:' + str(student.getNume()) + ' (' + str(stud) + ') cu nota: ' + str(
+                                    grade.getGrade()))
 
         return ok
 
@@ -93,7 +105,7 @@ class GradeService:
         all_grades = self.__repoG.get_all()
         all_students = self.__repoS.get_all()
         ok = False
-        max_medie=0
+        max_medie = 0
 
         for stud in all_students:
             media = 0
@@ -101,15 +113,15 @@ class GradeService:
             for grade in all_grades:
 
                 if grade.getStudent() == stud.getStudentID():
-                    media+=int(grade.getGrade())
-                    nr+=1
-            if nr>0:
-                media=float(media/nr)
+                    media += int(grade.getGrade())
+                    nr += 1
+            if nr > 0:
+                media = float(media / nr)
                 if max_medie < media:
                     max_medie = float(media)
                     student = stud.getNume()
                     ok = True
 
-        if ok==True:
+        if ok == True:
             return f'Studentul:  {str(student)}  cu media:  {str(max_medie)}'
         return ok

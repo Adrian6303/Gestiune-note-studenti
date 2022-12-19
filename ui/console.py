@@ -211,7 +211,6 @@ class Console:
 
     def __media_sub5(self):
         try:
-            print('Toti studenții cu media notelor de laborator mai mic decât 5:')
             exista_medii = self.__srvG.get_avg_sub5()
             if exista_medii is False:
                 print('Nu au fost gasiti studenti cu media sub 5')
@@ -221,21 +220,19 @@ class Console:
 
     def __lista_note_stud(self):
         nr_pbLab = input('Numar PbLab:')
-        print('Lista de studenți și notele lor la o problema de laborator data:')
         exista_note = self.__srvG.stat_studenti_note(nr_pbLab)
         if exista_note is False:
             print('Nu au fost gasiti studenti cu note la laboratorul dat')
 
     def __media_max(self):
         print('Studentul cu cea mai mare medie afisat in fisier')
-        rezultat= self.__srvG.get_media_max()
+        rezultat = self.__srvG.get_media_max()
         with open('data/statistici.txt', 'w') as f:
             if rezultat is False:
                 f.write('Nu au fost gasite medii')
             else:
-                f.write('Studentul cu cea mai mare medie:'+ '\n')
+                f.write('Studentul cu cea mai mare medie:' + '\n')
                 f.write(rezultat)
-
 
     def gestiune_lab_ui(self):
         # command-driven menu (just to have something different)
@@ -245,7 +242,7 @@ class Console:
         # you can try: https://learnpython.com/blog/python-match-case-statement/
         while True:
             print(
-                'Comenzi disponibile: add, delete, edit, search, assign grade, statistics, random, show all, show grades, exit')
+                'Comenzi disponibile: add, delete, edit, search, assign grade, stats, random, show all, show grades, exit')
             cmd = input('Comanda este:')
             cmd = cmd.lower().strip()
             if cmd == 'add':
@@ -295,7 +292,7 @@ class Console:
                     print('Comanda invalida.')
             elif cmd == 'assign grade':
                 self.__assign_grade()
-            elif cmd == 'statistics':
+            elif cmd == 'stats':
                 print('Selecteaza: medii sub 5, lista note studenti, cea mai mare medie:')
                 cmd = input('Comanda este:')
                 if cmd == 'medii sub 5':
