@@ -1,2 +1,2 @@
 Studentul cu cea mai mare medie:
-Studentul:  Leonardo Vrajitorul  cu media:  9.0
+Studentul: Adrian cu media: 10.0

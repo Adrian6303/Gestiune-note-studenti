@@ -65,7 +65,7 @@ class GradeService:
         if len(studenti) > 0:
             ok = True
             size = len(studenti)
-            studenti = gnomeSort(studenti, size)
+            studenti = gnome_sort(studenti)
             print('Toti studenții cu media notelor de laborator mai mic decât 5:')
             for stud in studenti:
                 for student in all_students:
@@ -88,8 +88,7 @@ class GradeService:
 
         if len(studenti) > 0:
             ok = True
-            size = len(studenti)
-            quickSort(studenti, 0, size - 1)
+            studenti = quick_sort(studenti)
             print('Lista de studenți și notele lor la  problema de laborator ' + str(nr) + ' data:')
             for stud in studenti:
                 for grade in all_grades:
@@ -100,28 +99,52 @@ class GradeService:
                                     grade.getGrade()))
 
         return ok
+    # varianta non- recursiva
+    #
+    # def get_media_max(self):
+    #     all_grades = self.__repoG.get_all()
+    #     all_students = self.__repoS.get_all()
+    #     ok = False
+    #     max_medie = 0
+    #
+    #     for stud in all_students:
+    #         media = 0
+    #         nr = 0
+    #         for grade in all_grades:
+    #
+    #             if grade.getStudent() == stud.getStudentID():
+    #                 media += int(grade.getGrade())
+    #                 nr += 1
+    #         if nr > 0:
+    #             media = float(media / nr)
+    #             if max_medie < media:
+    #                 max_medie = float(media)
+    #                 student = stud.getNume()
+    #                 ok = True
+    #
+    #     if ok == True:
+    #         return f'Studentul:  {str(student)}  cu media:  {str(max_medie)}'
+    #     return ok
 
-    def get_media_max(self):
-        all_grades = self.__repoG.get_all()
-        all_students = self.__repoS.get_all()
-        ok = False
-        max_medie = 0
+    def get_media_max(self, all_students = None, all_grades = None, max_medie=0, student=None):
+        if not all_students:
+            if max_medie > 0:
+                return f'Studentul: {str(student)} cu media: {str(max_medie)}'
+            all_students = self.__repoS.get_all()
+            all_grades = self.__repoG.get_all()
 
-        for stud in all_students:
-            media = 0
-            nr = 0
-            for grade in all_grades:
+        stud = all_students[0]
+        media = 0
+        nr = 0
+        for grade in all_grades:
+            if grade.getStudent() == stud.getStudentID():
+                media += int(grade.getGrade())
+                nr += 1
+        if nr > 0:
+            media = float(media / nr)
+            if max_medie < media:
+                max_medie = float(media)
+                student = stud.getNume()
 
-                if grade.getStudent() == stud.getStudentID():
-                    media += int(grade.getGrade())
-                    nr += 1
-            if nr > 0:
-                media = float(media / nr)
-                if max_medie < media:
-                    max_medie = float(media)
-                    student = stud.getNume()
-                    ok = True
+        return self.get_media_max(all_students[1:], all_grades, max_medie, student)
 
-        if ok == True:
-            return f'Studentul:  {str(student)}  cu media:  {str(max_medie)}'
-        return ok

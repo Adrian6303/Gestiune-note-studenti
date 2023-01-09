@@ -35,7 +35,7 @@ class TestCasePbLabService(unittest.TestCase):
         self.assertIsInstance(self.__srv.get_all_problems(), list)
         self.assertEqual(len(self.__srv.get_all_problems()), 2)
 
-    def test_edit_pbLab(self):
+    def test_edit_pbLab_blackbox(self):
         self.__srv.add_pbLab('2_77', 'ceva nou', '5 februarie')
         updated_pbLab = self.__srv.edit_pbLab('2_77', 'altceva', '7 mai')
 

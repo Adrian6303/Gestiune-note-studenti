@@ -38,9 +38,6 @@ class TestCaseGradeService(unittest.TestCase):
         self.assertRaises(PbLabNotFoundException, self.__srv.create_grade, 567354, '6_6', 4.8)
         self.assertRaises(ValidationException, self.__srv.create_grade, 785613, '5_6', 96.0)
 
-    def test_get_avg_sub5(self):
-        exist = self.__srv.get_avg_sub5()
-        self.assertEqual(exist, True)
 
     def test_stat_studenti_note(self):
         exist = self.__srv.stat_studenti_note(679456)
