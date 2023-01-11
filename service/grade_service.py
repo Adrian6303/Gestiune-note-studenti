@@ -4,7 +4,6 @@ from repository.grade_repo import GradeFileRepo
 from exceptions.exceptions import *
 from service.sort import *
 
-
 class GradeService:
     def __init__(self, repoS, repoL, repoG, validator):
         self.__repoS = repoS
@@ -60,17 +59,17 @@ class GradeService:
             if nr > 0:
                 media = float(media / nr)
                 if media < 5:
-                    studenti.append(stud.getStudentID())
+                    studenti.append(stud)
                     ok = True
         if len(studenti) > 0:
             ok = True
             size = len(studenti)
-            studenti = gnome_sort(studenti)
+            studenti = gnome_sort(studenti,lambda x:(x.getNume(), x.getStudentID()),False, cmp)
             print('Toti studenții cu media notelor de laborator mai mic decât 5:')
             for stud in studenti:
                 for student in all_students:
-                    if student.getStudentID() == stud:
-                        print('Studentul: ' + str(student.getNume()) + ' (Id:' + str(stud) + ')')
+                    if student.getStudentID() == stud.getStudentID():
+                        print('Studentul: ' + str(student.getNume()) + ' (Id:' + str(student.getStudentID()) + ')')
 
 
         return ok
@@ -84,17 +83,17 @@ class GradeService:
             if grade.getPbLab() == nr:
                 for student in all_students:
                     if student.getStudentID() == grade.getStudent():
-                        studenti.append(student.getStudentID())
+                        studenti.append(student)
 
         if len(studenti) > 0:
             ok = True
-            studenti = quick_sort(studenti)
+            studenti = quick_sort(studenti,lambda x:(x.getNume(), x.getStudentID()),False,cmp)
             print('Lista de studenți și notele lor la  problema de laborator ' + str(nr) + ' data:')
             for stud in studenti:
                 for grade in all_grades:
                     for student in all_students:
                         if student.getStudentID() == grade.getStudent():
-                            if stud == student.getStudentID() and grade.getPbLab() == nr:
+                            if stud.getStudentID() == student.getStudentID() and grade.getPbLab() == nr:
                                 print('Studentul:' + str(student.getNume()) + ' (' + str(stud) + ') cu nota: ' + str(
                                     grade.getGrade()))
 
